@@ -1,6 +1,6 @@
 [Unit]
 Description=Enable intel GPU on boot
-Before=sddm.service
+Before=lightdm.service
 
 [Service]
 Type=oneshot

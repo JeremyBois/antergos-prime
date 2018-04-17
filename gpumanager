@@ -53,7 +53,7 @@ function CleanConfigs() {
     rm -f /etc/X11/xorg.conf
     rm -f /etc/X11/xinit/xinitrc.d/nvidia-optimus.sh
     # rm -f /usr/share/gdm/greeter/autostart/display_setup.desktop
-    rm -f /usr/share/sddm/scripts/Xsetup
+    rm -f /etc/lightdm/Xsetup
     cp /etc/prime/20-intel.conf /etc/X11/xorg.conf.d/
 }
 
@@ -61,15 +61,13 @@ function CleanConfigs() {
 function SetupConfigs() {
     xorg_conf="/etc/prime/xorg.conf"
     offload="/etc/prime/nvidia-optimus.sh"
-    # offloadgdm="/etc/prime/display_setup.desktop"
-    offloadsddm="/etc/prime/Xsetup"
+    offloadlightdm="/etc/prime/Xsetup"
     echo "$(date +%Y-%m-%d:%H:%M:%S) - Setting up configs"
     cat $xorg_conf > /etc/X11/xorg.conf
-    # cat $offloadgdm > /usr/share/gdm/greeter/autostart/display_setup.desktop
-    cat $offloadsddm > /usr/share/sddm/scripts/Xsetup
+    cat $offloadlightdm > /etc/lightdm/Xsetup
     cat $offload > /etc/X11/xinit/xinitrc.d/nvidia-optimus.sh
     chmod +x /etc/X11/xinit/xinitrc.d/nvidia-optimus.sh
-    chmod +x /usr/share/sddm/scripts/Xsetup
+    chmod +x /etc/lightdm/Xsetup
 }
 
 # Load the nvidia module

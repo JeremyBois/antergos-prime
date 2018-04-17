@@ -22,8 +22,8 @@ else
         mv /etc/X11/xorg.conf /etc/X11/xorg.conf.bak
     fi
 
-    if [ -f /usr/share/sddm/scripts/Xsetup ]; then
-        rm -f /usr/share/sddm/scripts/Xsetup
+    if [ -f /etc/lightdm/Xsetup ]; then
+        rm -f /etc/lightdm/Xsetup
     fi
 
     echo "Prime removed from system!"
