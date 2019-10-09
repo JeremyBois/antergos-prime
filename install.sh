@@ -5,18 +5,14 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 else
     mkdir -p /etc/prime
+    cp snd-hda-intel.conf /etc/prime/
     cp xorg.conf /etc/prime/
     cp 20-intel.conf /etc/prime/
-    cp nvidia-optimus.sh /etc/prime/
     cp display_setup.desktop /etc/prime/
     cp Xsetup	/etc/prime/
     cp Xsetup_intel /etc/prime/
-    cp prime.service /etc/systemd/system/
     cp prime-select /usr/local/bin/
     chmod +x /usr/local/bin/prime-select
-
-    cp gpumanager /usr/local/bin/
-    chmod +x /usr/local/bin/gpumanager
 
     cp 99-bumblebee-nvidia-dev.rules /etc/udev/rules.d/
     cp nvidia.conf /etc/modprobe.d/

@@ -6,10 +6,12 @@ if [[ $EUID -ne 0 ]]; then
 else
     rm -rf /etc/prime
 
-    rm -f /etc/systemd/system/prime.service
     rm -f /usr/local/bin/prime-select
-    rm -f /usr/local/bin/gpumanager
     rm -f  /etc/udev/rules.d/99-bumblebee-nvidia-dev.rules
+
+    if [ -f /etc/modprobe.d/snd-hda-intel.conf ]; then
+        rm -f /etc/modprobe.d/snd-hda-intel.conf
+    fi
 
     if [ -f /etc/modprobe.d/nvidia.conf ]; then
         rm -f /etc/modprobe.d/nvidia.conf

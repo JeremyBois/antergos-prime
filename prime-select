@@ -32,6 +32,13 @@ function WriteDesiredConfig() {
     file="/etc/prime/state"
     if [ "$discretestate" = "nvidia" ]; then
         echo "ON" > "$file"
+
+        # Disable NVidia HDMI sound with snd-hda-intel to avoid pocking a disabled card (by bbswitch)
+        # Needed after update to kernel 5.3 that cause a freeze when using integrated graphic card
+        if [ -f /etc/modprobe.d/snd-hda-intel.conf ]; then
+            rm /etc/modprobe.d/snd-hda-intel.conf
+        fi
+
         cp /etc/prime/xorg.conf /etc/X11/
         if [ -f /etc/X11/xorg.conf.d/20-intel.conf ]; then
             rm /etc/X11/xorg.conf.d/20-intel.conf
@@ -44,6 +51,11 @@ function WriteDesiredConfig() {
         echo "ON" >> /proc/acpi/bbswitch
     elif [ "$discretestate" = "intel" ]; then
         echo "OFF" > "$file"
+
+        # Enable NVidia HDMI sound with snd-hda-intel
+        # Needed after update to kernel 5.3 that cause a freeze when using integrated graphic card
+        cp /etc/prime/snd-hda-intel.conf /etc/modprobe.d/
+
         cp /etc/prime/20-intel.conf /etc/X11/xorg.conf.d/
         if [ -f /etc/X11/xorg.conf ]; then
             rm /etc/X11/xorg.conf
